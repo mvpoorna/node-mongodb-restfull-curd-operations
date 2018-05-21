@@ -22,7 +22,7 @@ app.get('/', function(req, res) {
 	// ejs render automatically looks in the views folder
 	res.send('Greetings from the Poorna Rao!');
 });
-var port = 5000;
+var port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
 });
