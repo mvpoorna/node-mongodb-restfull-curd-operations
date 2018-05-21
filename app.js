@@ -17,7 +17,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/products', product);
 
-var port = 3256;
+app.get('/', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.send('Greetings from the Poorna Rao!');
+});
+var port = 5000;
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
 });
