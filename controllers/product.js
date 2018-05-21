@@ -2,16 +2,16 @@ var Product = require('../models/product');
 
 //Simple version, without validation or sanitation
 exports.test = function (req, res) {
-    res.send('Greetings from the Test controller!');
+    res.send('Greetings from the controller!');
 };
 
-exports.product_list = function(req, res){
+exports.indexAPI = function(req, res){
     Product.find({}, function(req, products){
         res.send(products);
     });
 };
 
-exports.product_create = function(req, res){
+exports.create = function(req, res){
     var product = new Product({
         name: req.body.name,
         price: req.body.price
@@ -25,21 +25,21 @@ exports.product_create = function(req, res){
     })
 };
 
-exports.product_details = function(req, res){
+exports.show = function(req, res){
     Product.findById(req.params.id, function(err, product){
         if(err) return next(err);
         res.send(product);
     });
 };
 
-exports.product_update = function(req, res){
+exports.update = function(req, res){
     Product.findByIdAndUpdate(req.params.id,{$set: req.body}, function(err, product){
         if(err) return next(err);
         res.send('Product Updated Successfully.');
     });
 };
 
-exports.product_delete = function(req, res){
+exports.destroy = function(req, res){
     Product.findByIdAndRemove(req.params.id,function(err){
         if(err) return next(err);
         res.send("Product Removed Successfully.");
