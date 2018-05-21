@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use('/products', product);
 
-var port = 1234;
+var port = 3256;
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
 });
