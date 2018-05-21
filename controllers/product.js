@@ -5,6 +5,12 @@ exports.test = function (req, res) {
     res.send('Greetings from the Test controller!');
 };
 
+exports.product_list = function(req, res){
+    Product.find({}, function(req, products){
+        res.send(products);
+    });
+};
+
 exports.product_create = function(req, res){
     var product = new Product({
         name: req.body.name,

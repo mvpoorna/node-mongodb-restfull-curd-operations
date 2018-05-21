@@ -18,11 +18,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/products', product);
 
 app.get('/', function(req, res) {
-
-	// ejs render automatically looks in the views folder
 	res.send('Greetings from the Poorna Rao!');
 });
-var port = process.env.PORT || 8080;
+//This process.env for heroku deployment
+var port = process.env.PORT || 5001;
 app.listen(port, () => {
     console.log('Server is up and running on port numner ' + port);
 });
