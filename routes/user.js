@@ -9,4 +9,6 @@ router.get('/:id', user_controller.show);
 router.put('/:id/update', user_controller.update);
 router.delete('/:id/delete', user_controller.destroy);
 
+router.post('/authenticate', user_controller.authenticateAPI);
+
 module.exports = router;

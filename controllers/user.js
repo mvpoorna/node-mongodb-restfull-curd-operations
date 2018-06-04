@@ -1,4 +1,6 @@
 var User = require('../models/user');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 exports.indexAPI = function(req, res){
     User.find({},function(req, users){
@@ -7,19 +9,33 @@ exports.indexAPI = function(req, res){
 };
 
 exports.create = function(req, res){
+    var hash = bcrypt.hashSync(req.body.password, saltRounds);
     var user = new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: hash,
         mobile_number: req.body.mobile_number,
         status: req.body.status,
         created: req.body.created
     });
 
-    user.save(function(err){
+    user.save(function(err,next){
         if(err) return next(err);
         res.send("User Created Successfully.");
     })
+};
+
+exports.authenticateAPI = function(req, res){
+    var password = req.body.password;
+    
+    User.find({"email":req.body.email}, function(req, user){
+        bcrypt.compare(password, user[0].password, function(err, result) {
+            if(result)
+                res.json({ success: true, message: 'Authentication successfull.' });
+            else
+                res.json({ success: true, message: 'Authentication failed. User not found.' });
+        });
+    });
 };
 
 exports.show = function(req, res){
@@ -28,14 +44,14 @@ exports.show = function(req, res){
     });
 };
 
-exports.update = function(req, res){
+exports.update = function(req, res, next){
     User.findByIdAndUpdate(req.params.id,{$set:req.body},function(err,user){
         if(err) return next(err);
         res.send("User Details Updated.");
     });
 };
 
-exports.destroy = function(req, res){
+exports.destroy = function(req, res, next){
     User.findByIdAndRemove(req.params.id,function(err){
         if(err) return next(err);
         res.send("User Deleted successfully.");
