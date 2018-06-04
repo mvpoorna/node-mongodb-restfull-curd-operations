@@ -10,6 +10,7 @@ exports.create = function(req, res){
     var user = new User({
         name: req.body.name,
         email: req.body.email,
+        password: req.body.password,
         mobile_number: req.body.mobile_number,
         status: req.body.status,
         created: req.body.created
