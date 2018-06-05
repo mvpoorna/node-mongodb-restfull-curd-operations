@@ -18,8 +18,7 @@ exports.create = function(req, res){
         email: req.body.email,
         password: hash,
         mobile_number: req.body.mobile_number,
-        status: req.body.status,
-        created: req.body.created
+        status: req.body.status
     });
 
     user.save(function(err,next){

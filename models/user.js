@@ -2,13 +2,13 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    name: {type: String, required: true, max: 255},
-    email: {type: String, required:true, unique:true},
+    name: {type: String, required: true, max: 255, trim: true},
+    email: {type: String, required:true, unique:true, trim: true},
     password: {type: String, required:true},
-    mobile_number: {type:Number},
+    mobile_number: {type:Number, trim: true},
     status: {type: String, enum: ['Active','Inactive']},
-    created: [Date],
-    updated: { type: Date, default: Date.now },
+},{
+    timestamps: true
 });
 
 // Export the model
